@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disasters | Learn. Prepare. Stay Safe.</title>
+<link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+<link rel="manifest" href="favicon_io/site.webmanifest">
+<style>
+:root {
+  --bg:#f3f6fb;
+  --card:#ffffff;
+  --text:#172338;
+  --muted:#64748b;
+  --primary:#1769ff;
+  --accent:#ff643d;
+  --border:#e2e8f0;
+}
+body.dark {
+  --bg:#0c1220;
+  --card:#151f32;
+  --text:#f1f5f9;
+  --muted:#b1bdd0;
+  --border:#2c3a50;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);color:var(--text);
+  line-height:1.65;transition:.25s;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.container{width:min(1180px,92%);margin:auto}
+header{
+  position:sticky;top:0;z-index:100;
+  background:var(--card);border-bottom:1px solid var(--border);
+}
+.nav{
+  min-height:76px;display:flex;align-items:center;
+  justify-content:space-between;gap:18px;flex-wrap:wrap;padding:12px 0;
+}
+.logo{font-size:25px;font-weight:900;letter-spacing:-1px}
+.logo span{color:var(--primary)}
+.navlinks{display:flex;gap:19px;align-items:center;flex-wrap:wrap}
+.navlinks a{font-size:14px;font-weight:bold}
+.navlinks a:hover{color:var(--primary)}
+.btn{
+  display:inline-block;border:0;border-radius:11px;padding:11px 17px;
+  background:var(--primary);color:white;font-weight:bold;
+  transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn.orange{background:var(--accent)}
+.btn.secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
+.hero{
+  min-height:520px;display:flex;align-items:center;
+  color:white;background:
+  linear-gradient(90deg,rgba(7,17,36,.92),rgba(7,17,36,.35)),
+  url("https://loremflickr.com/1600/900/storm,disaster") center/cover;
+}
+.hero-content{max-width:720px;padding:80px 0}
+.eyebrow{color:#8fbcff;font-weight:bold;text-transform:uppercase;letter-spacing:3px;font-size:12px}
+.hero h1{font-size:clamp(42px,7vw,76px);line-height:1.05;margin:18px 0}
+.hero p{font-size:18px;color:#e0e8f4;max-width:620px;margin-bottom:26px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:-35px;position:relative}
+.stat{background:var(--card);border:1px solid var(--border);padding:23px;border-radius:16px;box-shadow:0 10px 35px #0000000b}
+.stat strong{display:block;font-size:28px;color:var(--primary)}
+.stat span{font-size:13px;color:var(--muted)}
+section{padding:76px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:27px}
+.kicker{font-size:12px;color:var(--primary);font-weight:bold;letter-spacing:2px;text-transform:uppercase}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.2;margin:8px 0}
+.section-head p,.muted{color:var(--muted)}
+.search-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.search-row input{
+  flex:1;min-width:220px;padding:13px 15px;border-radius:12px;
+  border:1px solid var(--border);background:var(--card);color:var(--text);
+}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:27px}
+.filter{
+  border:1px solid var(--border);background:var(--card);color:var(--text);
+  padding:9px 14px;border-radius:25px;font-size:13px;font-weight:bold;
+}
+.filter.active{background:var(--primary);color:white;border-color:var(--primary)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:17px;overflow:hidden;transition:.25s;
+}
+.card:hover{transform:translateY(-5px);box-shadow:0 14px 32px #00000012}
+.card-img{height:210px;position:relative;background:#dce5f2}
+.card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.tag{
+  position:absolute;top:13px;left:13px;background:#ffffffed;color:#152238;
+  padding:5px 10px;border-radius:20px;font-size:11px;font-weight:bold;
+}
+.card-body{padding:20px}
+.card-body h3{font-size:21px;margin-bottom:7px}
+.card-body p{font-size:14px;color:var(--muted);margin-bottom:15px}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.text-btn{border:0;background:none;color:var(--primary);font-weight:bold}
+.small{font-size:12px;color:var(--muted)}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feature{padding:24px;background:var(--card);border:1px solid var(--border);border-radius:16px}
+.feature .emoji{font-size:31px}
+.feature h3{margin:10px 0 5px}
+.feature p{font-size:14px;color:var(--muted)}
+.history{
+  display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;
+  background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;
+}
+.history img{width:100%;height:100%;min-height:320px;object-fit:cover}
+.history-content{padding:30px}
+.history-content p{color:var(--muted);margin:12px 0}
+.tip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.tip{background:var(--card);border:1px solid var(--border);padding:20px;border-radius:14px}
+.tip h3{font-size:17px;margin-bottom:6px}
+.tip p{font-size:14px;color:var(--muted)}
+.checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+.check{
+  display:flex;align-items:center;gap:10px;background:var(--card);
+  border:1px solid var(--border);padding:13px;border-radius:11px;
+}
+.check input{width:18px;height:18px;accent-color:var(--primary)}
+.progress-wrap{height:9px;background:var(--border);border-radius:20px;overflow:hidden;margin-top:18px}
+.progress-bar{height:100%;width:0;background:var(--primary);transition:.3s}
+.quiz-box{background:var(--card);border:1px solid var(--border);padding:28px;border-radius:18px}
+.quiz-question{padding:18px 0;border-bottom:1px solid var(--border)}
+.quiz-question h3{font-size:17px;margin-bottom:12px}
+.answer{display:flex;gap:9px;align-items:center;padding:8px 0;cursor:pointer}
+.answer input{accent-color:var(--primary)}
+#quizResult{margin-top:18px;font-weight:bold}
+.cta{
+  background:linear-gradient(120deg,#145bdf,#743fe6);
+  color:white;padding:45px;border-radius:22px;text-align:center;
+}
+.cta p{color:#e5eaff;margin:10px auto 20px;max-width:650px}
+footer{padding:35px 0;border-top:1px solid var(--border)}
+.footer-row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+footer p{font-size:13px;color:var(--muted)}
+.modal{
+  display:none;position:fixed;inset:0;background:#050b16eF;
+  z-index:1000;overflow:auto;padding:25px;
+}
+.modal.show{display:flex;align-items:center;justify-content:center}
+.modal-box{width:min(1000px,100%);background:var(--card);border-radius:18px;padding:24px;position:relative}
+.modal-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
+.close{border:0;background:var(--bg);color:var(--text);font-size:26px;border-radius:10px;width:43px;height:43px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gallery img{width:100%;height:210px;object-fit:cover;border-radius:12px;cursor:zoom-in}
+.gallery img:hover{opacity:.85}
+#toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  padding:12px 18px;background:var(--text);color:var(--bg);
+  border-radius:12px;z-index:2000;display:none;
+}
+#topBtn{
+  position:fixed;bottom:20px;right:20px;z-index:200;
+  border:0;background:var(--primary);color:white;
+  width:45px;height:45px;border-radius:50%;font-size:22px;display:none;
+}
+.reveal{animation:rise .6s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== NEW: Emergency numbers ===== */
+.numbers{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.num-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center}
+.num-card .emoji{font-size:30px}
+.num-card strong{display:block;font-size:34px;color:var(--accent);margin:6px 0 2px;letter-spacing:1px}
+.num-card span{display:block;font-size:13px;color:var(--muted);margin-bottom:14px}
+.num-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.num-actions .btn{padding:8px 13px;font-size:13px}
+/* ===== NEW: Before / During / After ===== */
+.tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}
+.panel{display:none;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px}
+.panel.show{display:block;animation:rise .4s ease both}
+.phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.phase{background:var(--bg);border-radius:14px;padding:18px}
+.phase h3{font-size:16px;margin-bottom:8px}
+.phase ul{padding-left:18px;font-size:14px;color:var(--muted)}
+.phase li{margin-bottom:6px}
+/* ===== NEW: FAQ ===== */
+.faq-list{display:grid;gap:12px;max-width:820px}
+.faq{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0 20px}
+.faq summary{cursor:pointer;font-weight:bold;padding:17px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--primary);font-size:22px;line-height:1}
+.faq[open] summary::after{content:"–"}
+.faq p{color:var(--muted);font-size:14px;padding-bottom:17px}
+/* ===== NEW: Contact ===== */
+.contact-box{display:grid;grid-template-columns:1fr 1fr;gap:30px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px}
+.contact-box form{display:grid;gap:12px}
+.contact-box input,.contact-box textarea,.contact-box select{
+  width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+  background:var(--bg);color:var(--text)}
+.contact-box textarea{min-height:110px;resize:vertical}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .feature-grid{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .numbers{grid-template-columns:repeat(2,1fr)}
+  .phase-grid{grid-template-columns:1fr}
+  .navlinks{gap:12px}
+}
+@media(max-width:600px){
+  .grid,.feature-grid,.tip-grid,.checklist,.history,.numbers,.contact-box{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  .gallery img{height:150px}
+  .hero{min-height:460px}
+  .hero-content{padding:65px 0}
+  section{padding:54px 0}
+  .stats{margin-top:15px}
+  .history img{min-height:220px}
+  .history-content{padding:22px}
+  .cta{padding:30px 20px}
+  .contact-box{padding:22px}
+  .nav{justify-content:center}
+  .navlinks{justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#home" class="logo">DIS<span>ASTERS</span> ⚡</a>
+    <nav class="navlinks">
+      <a href="#disasters">Disasters</a>
+      <a href="#prepare">Preparation</a>
+      <a href="#guide">Safety Guide</a>
+      <a href="#armenia">Armenia</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="btn secondary" id="themeBtn">🌙 Theme</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="container hero-content">
+    <div class="eyebrow">Knowledge can save lives</div>
+    <h1>Understand Disasters.<br>Be Prepared.</h1>
+    <p>Discover different disasters, learn why they happen, and find out how to stay safe. Knowledge is an important part of preparedness.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#disasters">Explore Disasters →</a>
+      <a class="btn orange" href="#prepare">Learn Safety Tips</a>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="stats">
+    <div class="stat"><strong>08+</strong><span>Disaster topics</span></div>
+    <div class="stat"><strong>24/7</strong><span>Be prepared</span></div>
+    <div class="stat"><strong>01</strong><span>Safety first</span></div>
+    <div class="stat"><strong>100%</strong><span>Learn and prepare</span></div>
+  </div>
+</div>
+
+<section id="disasters">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Explore and learn</div>
+        <h2>Types of Disasters</h2>
+        <p>Choose a topic to discover information and view related photographs.</p>
+      </div>
+    </div>
+
+    <div class="search-row">
+      <input id="searchInput" type="search" placeholder="🔎 Search disasters..." aria-label="Search disasters">
+      <button class="btn secondary" id="clearSearch">Clear</button>
+    </div>
+
+    <div class="filters">
+      <button class="filter active" data-filter="all">All topics</button>
+      <button class="filter" data-filter="natural">Natural disasters</button>
+      <button class="filter" data-filter="human">Human-caused</button>
+    </div>
+
+    <div class="grid" id="disasterGrid">
+      <article class="card disaster-card" data-type="natural" data-name="earthquake">
+        <div class="card-img">
+          <img loading="lazy" src="https://www.ready.gov/sites/default/files/2022-04/kids_earthquakes.jpg" alt="Earthquake damaged buildings">
+          <span class="tag">NATURAL</span>
+        </div>
+        <div class="card-body">
+          <h3>Earthquakes</h3>
+          <p>Earthquakes happen when energy is released inside the Earth. They can shake the ground and damage buildings.</p>
+          <div class="card-foot"><span class="small">🌎 Ground movement</span><button class="text-btn open-gallery" data-topic="Earthquakes">View photos →</button></div>
+        </div>
+      </article>
+
+      <article class="card disaster-card" data-type="natural" data-name="flood">
+        <div class="card-img">
+          <img loading="lazy" src="https://www.reuters.com/resizer/v2/MKS4RXUYXZO5JKTMKBPEZ3PCOE.jpg?auth=de66c6b097ba721335f31b4c23c2c6402b3dc0d8c7ed55f6211b1a05e3cb9552&width=1080&quality=80" alt="Flooded street">
+          <span class="tag">NATURAL</span>
+        </div>
+        <div class="card-body">
+          <h3>Floods</h3>
+          <p>Floods happen when water covers land that is usually dry. Heavy rain and overflowing rivers can cause them.</p>
+          <div class="card-foot"><span class="small">🌊 Rising water</span><button class="text-btn open-gallery" data-topic="Floods">View photos →</button></div>
+        </div>
+      </article>
+
+      <article class="card disaster-card" data-type="natural" data-name="tornado">
+        <div class="card-img">
+          <img loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWbx_VlS40cP4RbfUL-wRZPOb5Nv3ieiu-jjqs0pkCmajU4DcRXWLAjvc&s=10" alt="Tornado during a storm">
+          <span class="tag">NATURAL</span>
+        </div>
+        <div class="card-body">
+          <h3>Tornadoes</h3>
+          <p>A tornado is a rotating column of air that reaches from a storm cloud toward the ground.</p>
+          <div class="card-foot"><span class="small">🌪️ Strong winds</span><button class="text-btn open-gallery" data-topic="Tornadoes">View photos →</button></div>
+        </div>
+      </article>
+
+      <article class="card disaster-card" data-type="natural" data-name="volcano eruption">
+        <div class="card-img">
+          <img loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRBUYMr5D5xf1-2DdJsLMf8VB2p9cxEU9CepIKyjzasw&s=10" alt="Volcano erupting lava">
+          <span class="tag">NATURAL</span>
+        </div>
+        <div class="card-body">
+          <h3>Volcanic Eruptions</h3>
+          <p>A volcano can release lava, ash, and gases. Volcanic activity can affect people and the environment.</p>
+          <div class="card-foot"><span class="small">🌋 Lava and ash</span><button class="text-btn open-gallery" data-topic="Volcanoes">View photos →</button></div>
+        </div>
+      </article>
+
+      <article class="card disaster-card" data-type="natural" data-name="wildfire forest fire">
+        <div class="card-img">
+          <img loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRivdBZOsPu1Q8173BVCGJ1tfHMBRSwQL4cKtSGMkNc4A&s=10" alt="Wildfire in a forest">
+          <span class="tag">NATURAL / HUMAN</span>
+        </div>
+        <div class="card-body">
+          <h3>Wildfires</h3>
+          <p>Wildfires spread through forests and grasslands. Hot, dry weather and human activity can increase their risk.</p>
+          <div class="card-foot"><span class="small">🔥 Fire and smoke</span><button class="text-btn open-gallery" data-topic="Wildfires">View photos →</button></div>
+        </div>
+      </article>
+
+      <article class="card disaster-card" data-type="human" data-name="industrial factory accident">
+        <div class="card-img">
+          <img loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqItsS-0p0vetUWKP3JREpl_McZSdP2MKnUWqa9WTa3Q&s=10" alt="Industrial factory">
+          <span class="tag">HUMAN-CAUSED</span>
+        </div>
+        <div class="card-body">
+          <h3>Industrial Accidents</h3>
+          <p>Industrial accidents can happen in factories or other workplaces. They may involve fires, explosions, or harmful leaks.</p>
+          <div class="card-foot"><span class="small">🏭 Workplace safety</span><button class="text-btn open-gallery" data-topic="Industrial Accidents">View photos →</button></div>
+        </div>
+      </article>
+
+      <article class="card disaster-card" data-type="human" data-name="oil spill ocean sea pollution">
+        <div class="card-img">
+          <img loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQURxBGzJ3MK0tremddU1KDWMJ69OdFxe553qoU0Ai45A&s=10" alt="Oil spill in the sea">
+          <span class="tag">HUMAN-CAUSED</span>
+        </div>
+        <div class="card-body">
+          <h3>Oil Spills</h3>
+          <p>Oil spills happen when oil enters the sea or other environments. They can harm wildlife and pollute water.</p>
+          <div class="card-foot"><span class="small">🐟 Water pollution</span><button class="text-btn open-gallery" data-topic="Oil Spills">View photos →</button></div>
+        </div>
+      </article>
+
+      <article class="card disaster-card" data-type="human" data-name="transport road traffic accident">
+        <div class="card-img">
+          <img loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxwrrJUe0cnv9yX1dRwFtnegzEcdEE5wY2TeT__MbLPA&s=10" alt="Road traffic accident">
+          <span class="tag">HUMAN-CAUSED</span>
+        </div>
+        <div class="card-body">
+          <h3>Transport Accidents</h3>
+          <p>Transport accidents can involve cars, trains, ships, or aircraft. Safety rules help reduce risks.</p>
+          <div class="card-foot"><span class="small">🚗 Transport safety</span><button class="text-btn open-gallery" data-topic="Transport Accidents">View photos →</button></div>
+        </div>
+      </article>
+    </div>
+    <p id="noResults" class="muted" style="display:none;margin-top:20px">No matching topics found. Try another search.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Learn the basics</div>
+        <h2>Why Do Disasters Happen?</h2>
+        <p>Understanding causes can help communities prepare.</p>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <article class="feature"><div class="emoji">🌍</div><h3>Natural Processes</h3><p>Earthquakes, volcanic eruptions, storms, and floods can result from natural processes.</p></article>
+      <article class="feature"><div class="emoji">🏭</div><h3>Human Activity</h3><p>Unsafe work practices, pollution, and accidents can cause serious emergencies.</p></article>
+      <article class="feature"><div class="emoji">🏘️</div><h3>Vulnerability</h3><p>Buildings, infrastructure, and emergency plans can affect how badly a community is impacted.</p></article>
+      <article class="feature"><div class="emoji">🌦️</div><h3>Weather Conditions</h3><p>Heavy rain, strong winds, heat, and drought can increase certain disaster risks.</p></article>
+      <article class="feature"><div class="emoji">📢</div><h3>Early Warnings</h3><p>Official alerts can give people time to prepare, move to safety, or follow instructions.</p></article>
+      <article class="feature"><div class="emoji">🤝</div><h3>Community Support</h3><p>Training, planning, and helping one another can make communities more resilient.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="prepare">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Be ready</div>
+        <h2>How to Prepare for a Disaster</h2>
+        <p>Small preparations can make a difference during an emergency.</p>
+      </div>
+    </div>
+    <div class="tip-grid">
+      <article class="tip"><h3>📋 Make a Family Plan</h3><p>Agree on a safe meeting place and how to contact family members.</p></article>
+      <article class="tip"><h3>📱 Follow Official Alerts</h3><p>Use trusted emergency services and follow instructions from local authorities.</p></article>
+      <article class="tip"><h3>🧭 Know Safe Places</h3><p>Learn the emergency exits and safer places in your home, school, and neighborhood.</p></article>
+      <article class="tip"><h3>🆘 Ask for Help</h3><p>Know how to contact local emergency services and tell a trusted adult if you need help.</p></article>
+    </div>
+
+    <div style="margin-top:35px">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Emergency kit</div>
+          <h2>Build Your Checklist</h2>
+          <p>Tick the items you already have. Your progress updates automatically.</p>
+        </div>
+        <strong id="checkCount">0 / 8 items</strong>
+      </div>
+      <div class="checklist" id="kitChecklist">
+        <label class="check"><input type="checkbox"> Drinking water</label>
+        <label class="check"><input type="checkbox"> Long-lasting food</label>
+        <label class="check"><input type="checkbox"> First-aid supplies</label>
+        <label class="check"><input type="checkbox"> Flashlight</label>
+        <label class="check"><input type="checkbox"> Spare batteries</label>
+        <label class="check"><input type="checkbox"> Essential medicines with adult guidance</label>
+        <label class="check"><input type="checkbox"> Important contact numbers</label>
+        <label class="check"><input type="checkbox"> Warm clothing and a blanket</label>
+      </div>
+      <div class="progress-wrap"><div class="progress-bar" id="kitProgress"></div></div>
+      <p class="small" style="margin-top:9px">Follow local emergency guidance when preparing supplies.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEW: Emergency numbers -->
+<section id="numbers">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Save these numbers</div>
+        <h2>Emergency Numbers in Armenia</h2>
+        <p>In an emergency, stay calm and call. Tap a button to call or copy the number.</p>
+      </div>
+    </div>
+    <div class="numbers">
+      <div class="num-card"><div class="emoji">🆘</div><strong>112</strong><span>Unified emergency</span>
+        <div class="num-actions"><a class="btn" href="tel:112">Call</a><button class="btn secondary copy-num" data-num="112">Copy</button></div></div>
+      <div class="num-card"><div class="emoji">🚒</div><strong>101</strong><span>Fire and rescue</span>
+        <div class="num-actions"><a class="btn" href="tel:101">Call</a><button class="btn secondary copy-num" data-num="101">Copy</button></div></div>
+      <div class="num-card"><div class="emoji">🚓</div><strong>102</strong><span>Police</span>
+        <div class="num-actions"><a class="btn" href="tel:102">Call</a><button class="btn secondary copy-num" data-num="102">Copy</button></div></div>
+      <div class="num-card"><div class="emoji">🚑</div><strong>103</strong><span>Ambulance</span>
+        <div class="num-actions"><a class="btn" href="tel:103">Call</a><button class="btn secondary copy-num" data-num="103">Copy</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW: Before / During / After -->
+<section id="guide">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Step by step</div>
+        <h2>Before, During and After</h2>
+        <p>Choose a disaster to see what to do in each stage.</p>
+      </div>
+    </div>
+    <div class="tabs" id="guideTabs">
+      <button class="filter active" data-panel="p-quake">🌎 Earthquake</button>
+      <button class="filter" data-panel="p-flood">🌊 Flood</button>
+      <button class="filter" data-panel="p-fire">🔥 Wildfire</button>
+    </div>
+
+    <div class="panel show" id="p-quake"><div class="phase-grid">
+      <div class="phase"><h3>⏪ Before</h3><ul><li>Secure heavy furniture to the walls.</li><li>Find safe spots: under a strong table, away from windows.</li><li>Practice drop, cover and hold on.</li></ul></div>
+      <div class="phase"><h3>⚠️ During</h3><ul><li>Drop, cover and hold on.</li><li>Stay away from windows and heavy objects.</li><li>Do not use the elevator.</li></ul></div>
+      <div class="phase"><h3>⏩ After</h3><ul><li>Expect aftershocks.</li><li>Check yourself and others for injuries.</li><li>Leave damaged buildings and follow official instructions.</li></ul></div>
+    </div></div>
+
+    <div class="panel" id="p-flood"><div class="phase-grid">
+      <div class="phase"><h3>⏪ Before</h3><ul><li>Know your area's flood risk.</li><li>Prepare an emergency kit and documents.</li><li>Agree on a family meeting place on higher ground.</li></ul></div>
+      <div class="phase"><h3>⚠️ During</h3><ul><li>Move to higher ground right away.</li><li>Do not walk or drive through flood water.</li><li>Follow evacuation orders.</li></ul></div>
+      <div class="phase"><h3>⏩ After</h3><ul><li>Return home only when authorities say it is safe.</li><li>Avoid flood water; it can be contaminated.</li><li>Do not touch electrical equipment if wet.</li></ul></div>
+    </div></div>
+
+    <div class="panel" id="p-fire"><div class="phase-grid">
+      <div class="phase"><h3>⏪ Before</h3><ul><li>Never leave fires or cigarettes unattended outdoors.</li><li>Know evacuation routes from your area.</li><li>Keep emergency numbers at hand.</li></ul></div>
+      <div class="phase"><h3>⚠️ During</h3><ul><li>Call 112 or 101 immediately.</li><li>Leave early when told to evacuate.</li><li>Cover nose and mouth to limit smoke.</li></ul></div>
+      <div class="phase"><h3>⏩ After</h3><ul><li>Do not return until it is declared safe.</li><li>Watch for hot spots and smoke.</li><li>Follow health advice about smoke exposure.</li></ul></div>
+    </div></div>
+  </div>
+</section>
+
+<section id="armenia">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">A part of our history</div><h2>The 1988 Spitak Earthquake</h2></div>
+    </div>
+    <div class="history">
+      <img loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzsJIbm-sOcNNhDNx7JlE_xqRV-MGe7I5IMSqtuzDj5w&s" alt="Spitak earthquake topic image">
+      <div class="history-content">
+        <div class="kicker">Armenia · 7 December 1988</div>
+        <h2>A lesson in preparedness</h2>
+        <p>A powerful earthquake struck northern Armenia on 7 December 1988. Spitak and other towns and villages suffered severe destruction, and many people lost their lives.</p>
+        <p>The disaster showed the importance of safe buildings, emergency planning, rescue services, and community support.</p>
+        <p><strong>What can we learn?</strong> Know the safety rules, follow official instructions, and take part in school emergency drills.</p>
+        <a class="btn" href="#prepare">Review Safety Tips</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">Test yourself</div><h2>Disaster Safety Quiz</h2><p>Answer the questions and check your score.</p></div>
+    </div>
+    <form class="quiz-box" id="quizForm">
+      <div class="quiz-question">
+        <h3>1. What should you do during an earthquake if you are indoors?</h3>
+        <label class="answer"><input type="radio" name="q1" value="a"> Run to the nearest window</label>
+        <label class="answer"><input type="radio" name="q1" value="b"> Drop, cover, and hold on</label>
+        <label class="answer"><input type="radio" name="q1" value="c"> Use the elevator</label>
+      </div>
+      <div class="quiz-question">
+        <h3>2. What is a flood?</h3>
+        <label class="answer"><input type="radio" name="q2" value="a"> Water covering normally dry land</label>
+        <label class="answer"><input type="radio" name="q2" value="b"> A rotating column of air</label>
+        <label class="answer"><input type="radio" name="q2" value="c"> A volcanic rock</label>
+      </div>
+      <div class="quiz-question">
+        <h3>3. What should you do when an official evacuation order is given?</h3>
+        <label class="answer"><input type="radio" name="q3" value="a"> Ignore it</label>
+        <label class="answer"><input type="radio" name="q3" value="b"> Wait next to a window</label>
+        <label class="answer"><input type="radio" name="q3" value="c"> Follow the instructions and evacuate safely</label>
+      </div>
+      <div class="quiz-question">
+        <h3>4. Which item is useful in an emergency kit?</h3>
+        <label class="answer"><input type="radio" name="q4" value="a"> A flashlight</label>
+        <label class="answer"><input type="radio" name="q4" value="b"> A glass decoration</label>
+        <label class="answer"><input type="radio" name="q4" value="c"> A video game console</label>
+      </div>
+      <div class="quiz-question">
+        <h3>5. What can help reduce disaster risks?</h3>
+        <label class="answer"><input type="radio" name="q5" value="a"> Ignoring warnings</label>
+        <label class="answer"><input type="radio" name="q5" value="b"> Preparation and safety training</label>
+        <label class="answer"><input type="radio" name="q5" value="c"> Spreading rumors</label>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
+        <button class="btn" type="submit">Check My Answers</button>
+        <button class="btn secondary" type="reset" id="resetQuiz">Try Again</button>
+      </div>
+      <div id="quizResult" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<!-- NEW: FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">Questions</div><h2>Frequently Asked Questions</h2></div>
+    </div>
+    <div class="faq-list">
+      <details class="faq"><summary>What is the most important thing to do in an emergency?</summary><p>Stay calm, protect yourself first, and follow instructions from emergency services.</p></details>
+      <details class="faq"><summary>What should an emergency kit contain?</summary><p>Water, long-lasting food, first-aid supplies, a flashlight, spare batteries, important phone numbers and warm clothing. Use the checklist above to track yours.</p></details>
+      <details class="faq"><summary>How can I get official alerts?</summary><p>Follow local authorities and emergency services, and do not trust or share unverified rumors.</p></details>
+      <details class="faq"><summary>Why is a family plan important?</summary><p>Communication can be hard during a disaster. A plan with a meeting place and contact numbers helps everyone know what to do.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- NEW: Contact -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-box">
+      <div>
+        <div class="kicker">Get in touch</div>
+        <h2>Share Feedback or a Question</h2>
+        <p class="muted">Tell us which topic you would like to see added or ask a question about safety.</p>
+      </div>
+      <form id="contactForm">
+        <input type="text" id="cName" placeholder="Your name" required>
+        <input type="email" id="cEmail" placeholder="Email" required>
+        <select id="cTopic" aria-label="Topic">
+          <option>Question</option><option>Suggestion</option><option>Report a mistake</option>
+        </select>
+        <textarea id="cMsg" placeholder="Your message" required></textarea>
+        <button class="btn" type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta">
+      <h2>Knowledge Is Your First Step</h2>
+      <p>Stay informed, prepare ahead, and listen to emergency services. A calm and informed response can help keep people safer.</p>
+      <a href="#disasters" class="btn orange">Explore Topics Again ↑</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <div><a href="#home" class="logo">DIS<span>ASTERS</span> ⚡</a><p>Learn. Prepare. Stay Safe.</p></div>
+    <p>Educational project · Always follow official emergency guidance.</p>
+  </div>
+</footer>
+
+<div class="modal" id="galleryModal" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-top">
+      <div><div class="kicker">Photo gallery</div><h2 id="galleryTitle">Disaster photos</h2><p class="small">Select a photo to open it in a new tab.</p></div>
+      <button class="close" id="closeModal" aria-label="Close gallery">×</button>
+    </div>
+    <div class="gallery" id="galleryImages"></div>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+<button id="topBtn" aria-label="Back to top">↑</button>
+
+<script src="./script.js"></script>
+</body>
+</html>
